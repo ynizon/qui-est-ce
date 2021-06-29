@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/whoplay/{id}', 'GameController@whoplay');
     Route::get('/game/{id}', 'GameController@game');
     Route::get('/replay/{id}', 'GameController@replay');
     Route::get('/remove/{id}', 'GameController@delete');

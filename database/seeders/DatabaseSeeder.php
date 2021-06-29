@@ -39,194 +39,216 @@ class DatabaseSeeder extends Seeder
         $card = new Card();
         $card->name = "Joe";
         $card->sex = "man";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 1;
         $card->glasses = 0;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#2
         $card = new Card();
         $card->name = "Iris";
         $card->sex = "woman";
-        $card->skin = "black";
-        $card->hair = "blond";
+        $card->skin = "skin_black";
+        $card->hair = "hair_blond";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 0;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#3
         $card = new Card();
         $card->name = "Jeanne";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "black";
+        $card->skin = "skin_white";
+        $card->hair = "hair_black";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 0;
-        $card->eye = "brown";
+        $card->eye = "eye_brown";
         $card->save();
 
         //#4
         $card = new Card();
         $card->name = "Mathilde";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 1;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#5
         $card = new Card();
-        $card->name = "Robert";
+        $card->name = "Yohann";
         $card->sex = "man";
-        $card->skin = "white";
-        $card->hair = "black";
+        $card->skin = "skin_white";
+        $card->hair = "hair_black";
         $card->beard = 1;
         $card->mustach = 1;
         $card->glasses = 0;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#6
         $card = new Card();
-        $card->name = "Véronique";
+        $card->name = "Roxane";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 1;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#7
         $card = new Card();
         $card->name = "Paul";
         $card->sex = "man";
-        $card->skin = "white";
-        $card->hair = "bald";
+        $card->skin = "skin_white";
+        $card->hair = "hair_bald";
         $card->beard = 0;
         $card->mustach = 1;
         $card->glasses = 1;
-        $card->eye = "grey";
+        $card->eye = "eye_grey";
         $card->save();
 
         //#8
         $card = new Card();
         $card->name = "Florent";
         $card->sex = "man";
-        $card->skin = "white";
-        $card->hair = "red";
+        $card->skin = "skin_white";
+        $card->hair = "hair_red";
         $card->beard = 1;
         $card->mustach = 1;
         $card->glasses = 0;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#9
         $card = new Card();
         $card->name = "Anne-Marie";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "black";
+        $card->skin = "skin_white";
+        $card->hair = "hair_black";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 1;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#10
         $card = new Card();
         $card->name = "Anne-Claire";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 0;
-        $card->eye = "brown";
+        $card->eye = "eye_brown";
         $card->save();
 
         //#11
         $card = new Card();
-        $card->name = "Yohann";
+        $card->name = "Corentin";
         $card->sex = "man";
-        $card->skin = "white";
-        $card->hair = "black";
+        $card->skin = "skin_white";
+        $card->hair = "hair_black";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 1;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#12
         $card = new Card();
         $card->name = "Suzanne";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 1;
-        $card->eye = "green";
+        $card->eye = "eye_green";
         $card->save();
 
         //#13
         $card = new Card();
         $card->name = "Antoinette";
         $card->sex = "woman";
-        $card->skin = "black";
-        $card->hair = "black";
+        $card->skin = "skin_black";
+        $card->hair = "hair_black";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 0;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#14
         $card = new Card();
         $card->name = "Yvette";
         $card->sex = "woman";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 0;
-        $card->eye = "brown";
+        $card->eye = "eye_brown";
         $card->save();
 
         //#15
         $card = new Card();
         $card->name = "Jacques";
         $card->sex = "man";
-        $card->skin = "white";
-        $card->hair = "dark blond";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
         $card->beard = 0;
         $card->mustach = 1;
         $card->glasses = 1;
-        $card->eye = "blue";
+        $card->eye = "eye_blue";
         $card->save();
 
         //#16
         $card = new Card();
         $card->name = "Axel";
         $card->sex = "man";
-        $card->skin = "black";
-        $card->hair = "black";
+        $card->skin = "skin_black";
+        $card->hair = "hair_black";
         $card->beard = 0;
         $card->mustach = 0;
         $card->glasses = 0;
-        $card->eye = "brown";
+        $card->eye = "eye_brown";
         $card->save();
 
+        //#17
+        $card = new Card();
+        $card->name = "Robin";
+        $card->sex = "man";
+        $card->skin = "skin_white";
+        $card->hair = "hair_blond";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 0;
+        $card->eye = "eye_blue";
+        $card->save();
 
+        //#18
+        $card = new Card();
+        $card->name = "Adrien";
+        $card->sex = "man";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 0;
+        $card->eye = "eye_blue";
+        $card->save();
     }
 }

@@ -46,7 +46,7 @@ $nbCards = unserialize($game->informations);
                         {{__('Please, select a question')}}
                     <form action="/update/{{$game->id}}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <select id="question" name="question" onchange="this.form.submit();">
+                        <select id="question" name="question" >
                             <option value="">-</option>
                             @foreach ($game->getQuestions() as $title => $questions)
                                 <optgroup label="{{__($title)}}">
@@ -56,6 +56,10 @@ $nbCards = unserialize($game->informations);
                                 </optgroup>
                             @endforeach
                         </select>
+                        <input type="submit" value="OK" />
+                        <script>
+                            document.getElementById('question').focus();
+                        </script>
                     </form>
                 @endif
             </div>
@@ -64,11 +68,11 @@ $nbCards = unserialize($game->informations);
     <br/>
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div style="display:grid;grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px;grid-row-gap: 1em;">
+            <div class="mygrid">
                 @foreach ($cards as $card)
-                    <div class="card @if (!$card->isVisible(Auth::user()->id, $game->id)) d-none @endif
-                        @if ($card->id == $game->card1_id && Auth::user()->id == $game->player1_id) border border-secondary @endif
-                        @if ($card->id == $game->card2_id && Auth::user()->id == $game->player2_id) border border-primary @endif
+                    <div class="card border @if (!$card->isVisible(Auth::user()->id, $game->id)) d-none @endif
+                        @if ($card->id == $game->card1_id && Auth::user()->id == $game->player1_id) border-secondary @endif
+                        @if ($card->id == $game->card2_id && Auth::user()->id == $game->player2_id) border-primary @endif
                         @if ($game->player1_id == Auth::user()->id) card-primary @endif @if ($game->player2_id == Auth::user()->id) card-secondary @endif
                         ">
 
@@ -87,12 +91,17 @@ $nbCards = unserialize($game->informations);
 
     @if (empty($game->winner))
         <script>
+            //Change player -> reload page
             window.setInterval(function() {
                 let isFocused = (document.activeElement === document.getElementById('question'));
                 if (!isFocused){
-                    window.location.reload();
+                    jQuery.ajax('/whoplay/{{$game->id}}').done(function(response) {
+                        if (response.player == <?php echo Auth::user()->id;?>){
+                            window.location.reload();
+                        }
+                    })
                 }
-            },10000)
+            },2000)
         </script>
     @endif
 </div>

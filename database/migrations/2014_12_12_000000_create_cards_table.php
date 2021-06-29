@@ -23,9 +23,9 @@ class CreateCardsTable extends Migration
             $table->boolean('beard')->default(false);
             $table->boolean("glasses")->default(0);
             $table->enum('sex',Card::SEX)->default("man");
-            $table->enum('hair',Card::HAIR)->default("black");
-            $table->enum("eye", Card::EYE)->default("blue");
-            $table->enum("skin", Card::SKIN)->default("white");
+            $table->enum('hair',Card::HAIR)->default("hair_black");
+            $table->enum("eye", Card::EYE)->default("eye_blue");
+            $table->enum("skin", Card::SKIN)->default("skin_white");
         });
     }
 

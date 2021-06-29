@@ -24,6 +24,11 @@ class GameController extends Controller
         return redirect("/game/".$game->id);
     }
 
+    public function whoplay($id){
+        $game = Game::findOrFail($id);
+        return response()->json(['player' => $game->player]);
+    }
+
     public function replay($id, Request $request){
         $game = Game::findOrFail($id);
         if ($game->winner == Auth::user()->id){
@@ -79,7 +84,7 @@ class GameController extends Controller
         $game->cards = serialize([]);
         $game->winner = 0;
 
-        $cards = Card::all();
+        $cards = Card::all()->shuffle()->take(config("app.nb_cards"));
         $info = [];
         foreach ($cards as $card){
             $card->game_id = $game->id;
