@@ -1,0 +1,26 @@
+@media (min-width: 1200px){
+    .container {
+        max-width: 1840px;
+    }
+}
+
+.card{margin:5px;}
+.card-primary{
+    background-color: #0a53be;
+}
+.border-primary {
+    border: 5px solid #0a53be !important;
+}
+.card-secondary{
+    background-color: #b21f2d;
+}
+.border-secondary {
+    border: 5px solid #b21f2d !important;
+}
+
+.card-header{
+    text-align: center;
+    text-transform: capitalize;
+    color:#fff;
+    background-color: inherit;
+}
