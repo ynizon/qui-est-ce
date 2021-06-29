@@ -9,16 +9,19 @@ $nbCards = unserialize($game->informations);
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="">
-                @if (session('status'))
+                @if ($game->winner == Auth::user()->id)
                     <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
+                        {{__('Game over. You win.')}}<br/>
                         <a href="/replay/{{$game->id}}">{{__('Play again')}}</a>
                     </div>
                 @endif
 
-                @if (session('error'))
+                @if ($game->winner != Auth::user()->id)
                     <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
+                        {{__('Game over. You loose.')}}<br/>
+                        {{__('It was')}}
+                        @if ($game->player1_id == $game->winner) {{ $cards[$game->card1_id]->name }}. @endif
+                        @if ($game->player2_id == $game->winner) {{ $cards[$game->card2_id]->name }}. @endif
                     </div>
                 @endif
 

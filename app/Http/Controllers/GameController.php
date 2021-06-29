@@ -43,15 +43,6 @@ class GameController extends Controller
 
     public function game($id, Request $request){
         $game = Game::findOrFail($id);
-
-        if (!empty($game->winner) && $request->input('end') != 1){
-            if ($game->winner == Auth::user()->id) {
-                return redirect("/game/".$game->id."?end=1")->withStatus(__("Game over. You win."));
-            }else{
-                return redirect("/game/".$game->id."?end=1")->withError(__("Game over. You loose."));
-            }
-        }
-
         $cards = unserialize($game->cards);
 
         if (empty($game->player2_id) && $game->player1_id != Auth::user()->id){
