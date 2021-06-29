@@ -79,7 +79,7 @@ class GameController extends Controller
         $game->cards = serialize([]);
         $game->winner = 0;
 
-        $cards = Card::all();
+        $cards = Card::all()->shuffle()->take(config("app.nb_cards"));
         $info = [];
         foreach ($cards as $card){
             $card->game_id = $game->id;

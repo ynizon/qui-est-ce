@@ -64,11 +64,11 @@ $nbCards = unserialize($game->informations);
     <br/>
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div style="display:grid;grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px;grid-row-gap: 1em;">
+            <div class="mygrid">
                 @foreach ($cards as $card)
-                    <div class="card @if (!$card->isVisible(Auth::user()->id, $game->id)) d-none @endif
-                        @if ($card->id == $game->card1_id && Auth::user()->id == $game->player1_id) border border-secondary @endif
-                        @if ($card->id == $game->card2_id && Auth::user()->id == $game->player2_id) border border-primary @endif
+                    <div class="card border @if (!$card->isVisible(Auth::user()->id, $game->id)) d-none @endif
+                        @if ($card->id == $game->card1_id && Auth::user()->id == $game->player1_id) border-secondary @endif
+                        @if ($card->id == $game->card2_id && Auth::user()->id == $game->player2_id) border-primary @endif
                         @if ($game->player1_id == Auth::user()->id) card-primary @endif @if ($game->player2_id == Auth::user()->id) card-secondary @endif
                         ">
 
@@ -92,7 +92,7 @@ $nbCards = unserialize($game->informations);
                 if (!isFocused){
                     window.location.reload();
                 }
-            },10000)
+            },5000)
         </script>
     @endif
 </div>

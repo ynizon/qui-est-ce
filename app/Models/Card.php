@@ -8,9 +8,9 @@ class Card extends Model
 {
     public $timestamps = false;
     public const SEX = ['man','woman'];
-    public const HAIR = ["dark blond","black","white","blond","red","bald"];
-    public const EYE = ["blue","green","black","brown","grey"];
-    public const SKIN = ["white","black"];
+    public const HAIR = ["hair_dark blond","hair_black","hair_white","hair_blond","hair_red","hair_bald"];
+    public const EYE = ["eye_blue","eye_green","eye_black","eye_brown","eye_grey"];
+    public const SKIN = ["skin_white","skin_black"];
 
 
     public function isVisible($playerId, $gameId){

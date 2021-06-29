@@ -4,9 +4,26 @@
     }
 }
 
-.card{margin:5px;}
+.hidden{
+    display:none;
+}
+
+.mygrid{
+    display:flex;  flex-wrap: wrap;
+}
+
+.card{
+    margin:5px;
+    margin-bottom:0;
+}
+.card-body{padding-bottom:0px;padding-top:0px;}
+.card-header{padding:1px;border-bottom:1px solid #ffffff;}
 .card-primary{
     background-color: #0a53be;
+}
+
+.card .border {
+    border: 5px solid !important;
 }
 .border-primary {
     border: 5px solid #0a53be !important;
