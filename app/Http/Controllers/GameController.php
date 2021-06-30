@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NextPlayer;
 use App\Models\Card;
 use App\Models\Game;
 use Auth;
@@ -175,13 +176,6 @@ class GameController extends Controller
 
             $game->cards = serialize($newCards);
 
-            if ($game->player1_id == $game->player) {
-                $game->player = $game->player2_id;
-            }else{
-                $game->player = $game->player1_id;
-            }
-            $game->save();
-
             $nbVisibleCards1 = 0;
             $nbVisibleCards2 = 0;
             foreach ($newCards as $card){
@@ -210,6 +204,15 @@ class GameController extends Controller
                 }
                 $game->save();
             }
+
+            if ($game->player1_id == $game->player) {
+                $game->player = $game->player2_id;
+            }else{
+                $game->player = $game->player1_id;
+            }
+            $game->save();
+            $nextPlayerEvent = new NextPlayer($game->id);
+            broadcast($nextPlayerEvent)->toOthers();
         }
 
         return redirect("/game/".$game->id);

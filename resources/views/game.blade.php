@@ -95,16 +95,24 @@ $nbCards = unserialize($game->informations);
     @if (empty($game->winner))
         <script>
             //Change player -> reload page
-            window.setInterval(function() {
-                let isFocused = (document.activeElement === document.getElementById('question'));
-                if (!isFocused){
-                    jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
-                        if (response.player == <?php echo Auth::user()->id;?>){
-                            window.location.reload();
-                        }
-                    })
-                }
-            },2000)
+            @if (empty(env('PUSHER_APP_ID')))
+                window.setInterval(function() {
+                    let isFocused = (document.activeElement === document.getElementById('question'));
+                    if (!isFocused){
+                        jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
+                            if (response.player == <?php echo Auth::user()->id;?>){
+                                window.location.reload();
+                            }
+                        })
+                    }
+                },2000)
+            @else
+                Echo.channel(`game-{{$game->id}}`)
+                    .listen('.NextPlayer', (event) => {
+                        console.log("public");
+                        window.location.reload();
+                    });
+            @endif
         </script>
     @endif
 </div>

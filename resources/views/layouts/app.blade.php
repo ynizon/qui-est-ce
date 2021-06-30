@@ -30,6 +30,8 @@
     <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
+    <div id="app_vuejs">
+    </div>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -85,12 +87,13 @@
             </div>
         </nav>
 
+        <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+        <script src="{{ asset('/js/app.js')}}"></script>
+
         <main class="py-4">
             @yield('content')
         </main>
-
-        <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
     </div>
 </body>
 </html>

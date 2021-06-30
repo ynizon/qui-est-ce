@@ -14,7 +14,11 @@ Les images ont étés réalisées via https://face.co
 - Lancer les commandes:
   
         composer install    
-        php artisan migrate --seed 
+        php artisan migrate --seed
+        php artisan config:clear
+        php artisan cache:clear   
+        npm install
+        npm run dev
 
 ## Cours
 
@@ -31,6 +35,7 @@ Les images ont étés réalisées via https://face.co
 - jQuery Ajax
 - Traductions
 - Hacking
+- Pusher API
 
 ## License
 
