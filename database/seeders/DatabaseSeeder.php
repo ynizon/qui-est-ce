@@ -250,5 +250,65 @@ class DatabaseSeeder extends Seeder
         $card->glasses = 0;
         $card->eye = "eye_blue";
         $card->save();
+
+        //#19
+        $card = new Card();
+        $card->name = "Victor";
+        $card->sex = "man";
+        $card->skin = "skin_white";
+        $card->hair = "hair_bald";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 0;
+        $card->eye = "eye_brown";
+        $card->save();
+
+        //#20
+        $card = new Card();
+        $card->name = "Samantha";
+        $card->sex = "woman";
+        $card->skin = "skin_black";
+        $card->hair = "hair_red";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 0;
+        $card->eye = "eye_grey";
+        $card->save();
+
+        //#21
+        $card = new Card();
+        $card->name = "Cassandre";
+        $card->sex = "woman";
+        $card->skin = "skin_black";
+        $card->hair = "hair_black";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 1;
+        $card->eye = "eye_green";
+        $card->save();
+
+        //#22
+        $card = new Card();
+        $card->name = "Sylvie";
+        $card->sex = "woman";
+        $card->skin = "skin_white";
+        $card->hair = "hair_blond";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 1;
+        $card->eye = "eye_blue";
+        $card->save();
+
+        //#23
+        $card = new Card();
+        $card->name = "Aurore";
+        $card->sex = "woman";
+        $card->skin = "skin_white";
+        $card->hair = "hair_dark blond";
+        $card->beard = 0;
+        $card->mustach = 0;
+        $card->glasses = 1;
+        $card->eye = "eye_grey";
+        $card->save();
     }
 }

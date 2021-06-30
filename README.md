@@ -13,25 +13,25 @@ Les images ont étés réalisées via https://face.co
 - Créér la base de données
 - Lancer les commandes:
   
-        omposer install    
+        composer install    
         php artisan migrate --seed 
 
 ## Cours
 
-Configuration (.env, config, composer)
-Authentification
-Création des modèles (User, Game, Card)
-Analyse des tables
-Ajout de personnage (SQL)
-Création des scripts d'imports
-Routing
-Controller
-Templating
-Pagination
-jQuery Ajax
-Traductions
-Hacking
+- Configuration (.env, config, composer)
+- Authentification
+- Création des modèles (User, Game, Card)
+- Analyse des tables
+- Ajout de personnage (SQL)
+- Création des scripts d'imports
+- Routing
+- Controller
+- Templating
+- Pagination
+- jQuery Ajax
+- Traductions
+- Hacking
 
 ## License
 
-Cette application est open-source et utilise la licence [MIT license](https://opensource.org/licenses/MIT).
+Cette application est open-source et utilise la licence [GNU v3].
