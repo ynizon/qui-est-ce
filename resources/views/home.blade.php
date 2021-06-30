@@ -24,7 +24,7 @@
                         <ul>
                             @foreach ($games as $game)
                                 <li>
-                                    <a href="/game/{{ $game->id }}">#{{ $game->id }} - {{ $game->name }}</a>
+                                    <a href="{{env('APP_URL')}}/game/{{ $game->id }}">#{{ $game->id }} - {{ $game->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -34,13 +34,13 @@
                     <h2>{{__('My games')}}</h2>
                     <ul>
                         <li>
-                            <a href="/create">{{__('Create a game')}}</a>
+                            <a href="{{env('APP_URL')}}/create">{{__('Create a game')}}</a>
                         </li>
                         @foreach ($mygames as $game)
                         <li>
-                            <a href="/game/{{ $game->id }}">#{{ $game->id }} - {{ $game->name }}</a>
+                            <a href="{{env('APP_URL')}}/game/{{ $game->id }}">#{{ $game->id }} - {{ $game->name }}</a>
                             &nbsp;
-                            <a href="/remove/{{ $game->id }}"><i class="fa fa-trash"></i>&nbsp;&nbsp;{{__('Remove')}}</a>
+                            <a href="{{env('APP_URL')}}/remove/{{ $game->id }}"><i class="fa fa-trash"></i>&nbsp;&nbsp;{{__('Remove')}}</a>
                         </li>
                         @endforeach
                     </ul>

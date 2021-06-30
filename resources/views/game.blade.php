@@ -12,16 +12,16 @@ $nbCards = unserialize($game->informations);
                 @if ($game->winner == Auth::user()->id)
                     <div class="alert alert-success" role="alert">
                         {{__('Game over. You win.')}}<br/>
-                        <a href="/replay/{{$game->id}}">{{__('Play again')}}</a>
+                        <a href="{{env('APP_URL')}}/replay/{{$game->id}}">{{__('Play again')}}</a>
                     </div>
                 @endif
 
-                @if ($game->winner != Auth::user()->id)
+                @if ($game->winner != Auth::user()->id && !empty($game->winner))
                     <div class="alert alert-danger" role="alert">
                         {{__('Game over. You loose.')}}<br/>
                         {{__('It was')}}
-                        @if ($game->player1_id == $game->winner) {{ $cards[$game->card1_id]->name }}. @endif
-                        @if ($game->player2_id == $game->winner) {{ $cards[$game->card2_id]->name }}. @endif
+                        @if ($game->player1_id == $game->winner && isset($cards[$game->card1_id])) {{ $cards[$game->card1_id]->name }}. @endif
+                        @if ($game->player2_id == $game->winner && isset($cards[$game->card2_id])) {{ $cards[$game->card2_id]->name }}. @endif
                     </div>
                 @endif
 
@@ -47,7 +47,7 @@ $nbCards = unserialize($game->informations);
 
                 @if ($game->player == Auth::user()->id && !empty($game->card1_id) && !empty($game->card2_id) && empty($game->winner))
                         {{__('Please, select a question')}}
-                    <form action="/update/{{$game->id}}" method="post">
+                    <form action="{{env('APP_URL')}}/update/{{$game->id}}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <select id="question" name="question" >
                             <option value="">-</option>
@@ -82,7 +82,7 @@ $nbCards = unserialize($game->informations);
                         <div class="card-header">{{ $card->name }}</div>
 
                         <div class="card-body">
-                            <a href="/start/{{$game->id}}/{{$card->id}}">
+                            <a href="{{env('APP_URL')}}/start/{{$game->id}}/{{$card->id}}">
                                 <img style="height:150px;width:150px;" src="/images/cards/{{$card->id}}.png" />
                             </a>
                         </div>
@@ -98,7 +98,7 @@ $nbCards = unserialize($game->informations);
             window.setInterval(function() {
                 let isFocused = (document.activeElement === document.getElementById('question'));
                 if (!isFocused){
-                    jQuery.ajax('/whoplay/{{$game->id}}').done(function(response) {
+                    jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
                         if (response.player == <?php echo Auth::user()->id;?>){
                             window.location.reload();
                         }
