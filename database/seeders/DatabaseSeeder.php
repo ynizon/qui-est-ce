@@ -18,6 +18,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'name' => 'CPU',
+            'email' => 'cpu@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('cpu'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
             'name' => 'Player 1',
             'email' => 'player1@gmail.com',
             'email_verified_at' => now(),

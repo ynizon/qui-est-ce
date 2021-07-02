@@ -33,7 +33,7 @@ $nbCards = unserialize($game->informations);
                         {{__('Please, choose a card')}}<br/>
                 @endif
 
-                @if (!empty($game->player) && $game->player != Auth::user()->id)
+                @if (!empty($game->player) && $game->player != Auth::user()->id && empty($game->winner))
                         {{__('Wait other player')}}<br/>
                 @endif
 
@@ -73,7 +73,7 @@ $nbCards = unserialize($game->informations);
         <div class="col-md-12">
             <div class="mygrid">
                 @foreach ($cards as $card)
-                    <div class="card border @if (!$card->isVisible(Auth::user()->id, $game->id)) d-none @endif
+                    <div class="card card-border @if (!$card->isVisible($game, Auth::user()->id, $game->id)) d-none @endif
                         @if ($card->id == $game->card1_id && Auth::user()->id == $game->player1_id) border-secondary @endif
                         @if ($card->id == $game->card2_id && Auth::user()->id == $game->player2_id) border-primary @endif
                         @if ($game->player1_id == Auth::user()->id) card-primary @endif @if ($game->player2_id == Auth::user()->id) card-secondary @endif
@@ -92,28 +92,26 @@ $nbCards = unserialize($game->informations);
         </div>
     </div>
 
-    @if (empty($game->winner))
-        <script>
-            //Change player -> reload page
-            @if (empty(env('PUSHER_APP_ID')))
-                window.setInterval(function() {
-                    let isFocused = (document.activeElement === document.getElementById('question'));
-                    if (!isFocused){
-                        jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
-                            if (response.player == <?php echo Auth::user()->id;?>){
-                                window.location.reload();
-                            }
-                        })
-                    }
-                },2000)
-            @else
-                Echo.channel(`game-{{$game->id}}`)
-                    .listen('.NextPlayer', (event) => {
-                        console.log("public");
-                        window.location.reload();
-                    });
-            @endif
-        </script>
-    @endif
+    <!--Change player -> reload page -->
+    <script>
+        @if (empty(env('PUSHER_APP_ID')))
+            window.setInterval(function() {
+                let isFocused = (document.activeElement === document.getElementById('question'));
+                if (!isFocused){
+                    jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
+                        if (response.player == <?php echo Auth::user()->id;?>){
+                            window.location.reload();
+                        }
+                    })
+                }
+            },2000)
+        @else
+            Echo.channel(`game-{{$game->id}}`)
+                .listen('.NextPlayer', (event) => {
+                    console.log("public");
+                    window.location.reload();
+                });
+        @endif
+    </script>
 </div>
 @endsection

@@ -13,8 +13,7 @@ class Card extends Model
     public const SKIN = ["skin_white","skin_black"];
 
 
-    public function isVisible($playerId, $gameId){
-        $game = Game::findOrFail($gameId);
+    public function isVisible($game, $playerId, $gameId){
         $cards = unserialize($game->cards);
 
         foreach ($cards[$this->id] as $attribute=>$value){

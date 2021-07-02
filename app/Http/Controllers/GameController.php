@@ -20,6 +20,8 @@ class GameController extends Controller
                 $game->card2_id = $cardId;
             }
             $game->save();
+            $nextPlayerEvent = new NextPlayer($game->id);
+            broadcast($nextPlayerEvent)->toOthers();
         }
 
         return redirect("/game/".$game->id);
@@ -92,110 +94,11 @@ class GameController extends Controller
 
     public function update($id, Request $request){
         $game = Game::findOrFail($id);
-        $cards = unserialize($game->cards);
         if (!empty($request->input('question')) && Auth::user()->id == $game->player){
-            $questions = explode('@',$request->input('question'));
-            $attribute = $questions[0];
-            $value = $questions[1];
+            $this->updateVisibleGameCards($game, $request);
+            $nbVisibleCards = $this->updateAndGetCountVisibleGameCards($game);
 
-            $cardRef = null;
-            if (Auth::user()->id == $game->player1_id){
-                $cardRef = $cards[$game->card2_id];
-            }else{
-                $cardRef = $cards[$game->card1_id];
-            }
-            $values = [];
-            if ($cardRef->$attribute == $value){
-                //Prendre toutes les autres valeurs de l'attribut
-                switch ($attribute){
-                    case 'eye':
-                        foreach (Card::EYE as $v){
-                            if ($v != $value){
-                                $values[]= $v;
-                            }
-                        }
-                        break;
-
-                    case 'skin':
-                        foreach (Card::SKIN as $v){
-                            if ($v != $value){
-                                $values[]= $v;
-                            }
-                        }
-                        break;
-
-                    case 'hair':
-                        foreach (Card::HAIR as $v){
-                            if ($v != $value){
-                                $values[]= $v;
-                            }
-                        }
-                        break;
-
-                    case 'sex':
-                        foreach (Card::SEX as $v){
-                            if ($v != $value){
-                                $values[]= $v;
-                            }
-                        }
-                    break;
-
-                    case 'id':
-                        foreach (Card::all() as $v){
-                            if ($v->id != $value){
-                                $values[]= $v->id;
-                            }
-                        }
-                        break;
-
-                    default:
-                        if ($value == 1){
-                            $values = [0];
-                        }else{
-                            $values = [1];
-                        }
-
-                        break;
-                }
-            }else{
-                $values = [$value];
-            }
-
-            $newCards = [];
-            foreach ($cards as $card){
-                if (in_array($card->$attribute, $values)){
-                    if ($game->player1_id == Auth::user()->id){
-                        $card->visible_player1 = false;
-                    }
-                    if ($game->player2_id == Auth::user()->id){
-                        $card->visible_player2 = false;
-                    }
-                }
-                $newCards[$card->id] = $card;
-            }
-
-            $game->cards = serialize($newCards);
-
-            $nbVisibleCards1 = 0;
-            $nbVisibleCards2 = 0;
-            foreach ($newCards as $card){
-                if ($card->isVisible($game->player1_id, $game->id)){
-                    $nbVisibleCards1++;
-                }
-                if ($card->isVisible($game->player2_id, $game->id)){
-                    $nbVisibleCards2++;
-                }
-            }
-
-            $game->informations = serialize([$game->player1_id => $nbVisibleCards1, $game->player2_id => $nbVisibleCards2]);
-            $game->save();
-
-            if (Auth::user()->id == $game->player1_id) {
-                $nbVisibleCards = $nbVisibleCards1;
-            }else{
-                $nbVisibleCards = $nbVisibleCards2;
-            }
-
+            //Winner ?
             if ($nbVisibleCards == 1 && empty($game->winner)){
                 if ($game->player2_id == Auth::user()->id){
                     $game->winner = $game->player2_id;
@@ -205,6 +108,7 @@ class GameController extends Controller
                 $game->save();
             }
 
+            //Next player
             if ($game->player1_id == $game->player) {
                 $game->player = $game->player2_id;
             }else{
@@ -216,6 +120,117 @@ class GameController extends Controller
         }
 
         return redirect("/game/".$game->id);
+    }
+
+    private function updateVisibleGameCards($game, $request){
+        $cards = unserialize($game->cards);
+        $questions = explode('@',$request->input('question'));
+        $attribute = $questions[0];
+        $value = $questions[1];
+
+        $cardRef = null;
+        if (Auth::user()->id == $game->player1_id){
+            $cardRef = $cards[$game->card2_id];
+        }else{
+            $cardRef = $cards[$game->card1_id];
+        }
+        $values = [];
+        if ($cardRef->$attribute == $value){
+            //Prendre toutes les autres valeurs de l'attribut
+            switch ($attribute){
+                case 'eye':
+                    foreach (Card::EYE as $v){
+                        if ($v != $value){
+                            $values[]= $v;
+                        }
+                    }
+                    break;
+
+                case 'skin':
+                    foreach (Card::SKIN as $v){
+                        if ($v != $value){
+                            $values[]= $v;
+                        }
+                    }
+                    break;
+
+                case 'hair':
+                    foreach (Card::HAIR as $v){
+                        if ($v != $value){
+                            $values[]= $v;
+                        }
+                    }
+                    break;
+
+                case 'sex':
+                    foreach (Card::SEX as $v){
+                        if ($v != $value){
+                            $values[]= $v;
+                        }
+                    }
+                    break;
+
+                case 'id':
+                    foreach (Card::all() as $v){
+                        if ($v->id != $value){
+                            $values[]= $v->id;
+                        }
+                    }
+                    break;
+
+                default:
+                    if ($value == 1){
+                        $values = [0];
+                    }else{
+                        $values = [1];
+                    }
+
+                    break;
+            }
+        }else{
+            $values = [$value];
+        }
+
+        $newCards = [];
+        foreach ($cards as $card){
+            if (in_array($card->$attribute, $values)){
+                if ($game->player1_id == Auth::user()->id){
+                    $card->visible_player1 = false;
+                }
+                if ($game->player2_id == Auth::user()->id){
+                    $card->visible_player2 = false;
+                }
+            }
+            $newCards[$card->id] = $card;
+        }
+
+        $game->cards = serialize($newCards);
+        $game->save();
+    }
+
+    private function updateAndGetCountVisibleGameCards($game){
+        $newCards = unserialize($game->cards);
+
+        $nbVisibleCards1 = 0;
+        $nbVisibleCards2 = 0;
+        foreach ($newCards as $card){
+            if ($card->isVisible($game, $game->player1_id, $game->id)){
+                $nbVisibleCards1++;
+            }
+            if ($card->isVisible($game, $game->player2_id, $game->id)){
+                $nbVisibleCards2++;
+            }
+        }
+
+        $game->informations = serialize([$game->player1_id => $nbVisibleCards1, $game->player2_id => $nbVisibleCards2]);
+
+        if (Auth::user()->id == $game->player1_id) {
+            $nbVisibleCards = $nbVisibleCards1;
+        }else{
+            $nbVisibleCards = $nbVisibleCards2;
+        }
+        $game->save();
+        return $nbVisibleCards;
     }
 
     public function delete($id){

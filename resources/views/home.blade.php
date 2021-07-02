@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="">
-                <meta http-equiv="refresh" content="100;">
+                <meta http-equiv="refresh" content="10;">
                 <div class="">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

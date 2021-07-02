@@ -10036,7 +10036,7 @@ h3 {
 }
 
 .card-border {
-  border: 5px solid !important;
+  border: 5px solid #ddd !important;
 }
 
 .border-primary {
