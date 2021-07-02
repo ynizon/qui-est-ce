@@ -94,24 +94,26 @@ $nbCards = unserialize($game->informations);
 
     <!--Change player -> reload page -->
     <script>
-        @if (empty(env('PUSHER_APP_ID')))
-            window.setInterval(function() {
-                let isFocused = (document.activeElement === document.getElementById('question'));
-                if (!isFocused){
-                    jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
-                        if (response.player == <?php echo Auth::user()->id;?>){
-                            window.location.reload();
-                        }
-                    })
-                }
-            },2000)
-        @else
+        let timer = 2000;
+        @if (!empty(env('PUSHER_APP_ID')))
             Echo.channel(`game-{{$game->id}}`)
                 .listen('.NextPlayer', (event) => {
                     console.log("public");
                     window.location.reload();
                 });
+            timer = 30000;
         @endif
+
+        window.setInterval(function() {
+            let isFocused = (document.activeElement === document.getElementById('question'));
+            if (!isFocused){
+                jQuery.ajax('{{env('APP_URL')}}/whoplay/{{$game->id}}').done(function(response) {
+                    if (response.player == <?php echo Auth::user()->id;?>){
+                        window.location.reload();
+                    }
+                })
+            }
+        },timer)
     </script>
 </div>
 @endsection
