@@ -35,7 +35,18 @@ Les images ont étés réalisées via https://face.co
 - jQuery Ajax
 - Traductions
 - Hacking
-- Pusher API
+- Pusher API (Websocket)
+
+## Memo
+
+- laravel new quiestce
+- composer require laravel/ui
+- php artisan ui vue --auth
+- php artisan migrate --seed
+- namespace dans RouteServiceProvider
+- activer BroadcastServiceProvider
+- composer require pusher/pusher-php-server
+
 
 ## License
 
