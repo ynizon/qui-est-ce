@@ -101,6 +101,13 @@ $nbCards = unserialize($game->informations);
                     console.log("public");
                     window.location.reload();
                 });
+				
+			//@TODO : I dont understand why it disconnect after 30 seconds
+            window.Echo.connector.pusher.connection.bind('state_change', function (states) {
+                if (states.current === 'disconnected') {
+                    window.Echo.connector.pusher.connect();
+                }
+            });
             timer = 30000;
         @endif
 
